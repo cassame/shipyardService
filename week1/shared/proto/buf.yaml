@@ -1,0 +1,8 @@
+version: v1
+name: buf.build/go-course/homework # Имя может быть любым
+lint:
+  use:
+    - DEFAULT
+breaking:
+  use:
+    - FILE
