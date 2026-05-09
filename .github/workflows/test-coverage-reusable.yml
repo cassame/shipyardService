@@ -45,13 +45,16 @@ jobs:
       - name: 📊 Extract coverage percent
         run: |
           # Ищем строку, начинающуюся на total, берем последнее поле и удаляем всё лишнее
-          TOTAL=$(grep '^total:' ${COVERAGE_DIR}/${COVERAGE_FILE} | awk '{print $NF}' | tr -d '\r\n ')
-
-          # Если вдруг grep не нашел total в файле, попробуем запустить go tool напрямую
-          if [ -z "$TOTAL" ]; then
-            TOTAL=$(go tool cover -func=${COVERAGE_DIR}/${COVERAGE_FILE} | grep '^total:' | awk '{print $NF}' | tr -d '\r\n ')
+          FILE_PATH="${{ env.COVERAGE_DIR }}/${{ env.COVERAGE_FILE }}"
+          RAW_TOTAL=$(go tool cover -func="$FILE_PATH" | grep "^total:" || true)
+          if [ -z "$RAW_TOTAL" ]; then
+             echo "⚠️ Не нашли строку total в выводе, ставим 0%"
+             TOTAL="0%"
+          else
+              TOTAL=$(echo "$RAW_TOTAL" | awk '{print $NF}' | tr -d '\r\n[:space:]')
+             echo "✅ Чистый процент: '$TOTAL'"
           fi
-
+          
           echo "TOTAL_COVERAGE=$TOTAL" >> $GITHUB_ENV
           echo "GIST_ID=${{ inputs.gist-id }}" >> $GITHUB_ENV
 
