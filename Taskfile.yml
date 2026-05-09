@@ -269,24 +269,24 @@ tasks:
     cmds:
       - |
         echo "🧪 Запускаем расчёт покрытия..."
-        # Убираем все {{.ROOT_DIR}} и прочее. Просто папка в корне.
-        COVER_DIR="coverage" 
-        rm -rf $COVER_DIR
-        mkdir -p $COVER_DIR
+        # Получаем АБСОЛЮТНЫЙ путь к корню и папке coverage
+        ROOT=$(pwd)
+        COVER_DIR="$ROOT/coverage"
+        
+        rm -rf "$COVER_DIR"
+        mkdir -p "$COVER_DIR"
         
         ERR=0
         for mod in {{.MODULES}}; do
           if [ -d "$mod" ]; then
             echo "📦 Обрабатываем модуль: $mod"
         
-            # Заходим внутрь и запускаем тест по всем пакетам модуля
-            # -coverpkg=./... заставит Go считать покрытие по всему коду внутри этого модуля
-            (cd $mod && go test -coverprofile=$COVER_DIR/$(basename $mod).out \
+            # Заходим внутрь модуля. 
+            # Теперь $COVER_DIR — это полный путь, и Go его найдет!
+            (cd "$mod" && go test -coverprofile="$COVER_DIR/$(basename $mod).out" \
               -coverpkg=./... \
               -covermode=atomic \
               ./...) || {
-                # Если в модуле ВООБЩЕ нет тестов, Go выдаст ошибку. 
-                # Мы это игнорируем, чтобы билд не падал.
                 echo "⚠️  В модуле $mod возникли проблемы (возможно, нет тестов)"
               }
           fi
@@ -294,16 +294,15 @@ tasks:
         
         echo
         echo "📦 Склеиваем все покрытия..."
-        # Создаем пустой файл на случай, если тестов вообще не было
-        echo "mode: atomic" > $COVER_DIR/{{.COVERAGE_FILE}}
+        echo "mode: atomic" > "$COVER_DIR/total.out"
         
-        # Собираем данные из всех существующих .out файлов
-        find $COVER_DIR -type f -name '*.out' ! -name '{{.COVERAGE_FILE}}' \
-          -exec grep -h -v "^mode:" {} + >> $COVER_DIR/{{.COVERAGE_FILE}}
+        # Собираем данные из всех созданных файлов
+        find "$COVER_DIR" -type f -name '*.out' ! -name 'total.out' \
+          -exec grep -h -v "^mode:" {} + >> "$COVER_DIR/total.out"
         
         echo
         echo "🧾 Общее покрытие по всем модулям:"
-        go tool cover -func=$COVER_DIR/{{.COVERAGE_FILE}} | tail -n1
+        go tool cover -func="$COVER_DIR/total.out" | tail -n1
 
   coverage:html:
     desc: "Генерирует HTML-отчёт покрытия и открывает его в браузере"
