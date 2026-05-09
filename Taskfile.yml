@@ -36,7 +36,7 @@ vars:
   COVERAGE_DIR: '{{.ROOT_DIR}}/coverage'
   COVERAGE_FILE: total.out
 
-  MODULES: assembly inventory order payment platform iam notification
+  MODULES: week1/assembly week1/inventory week1/order week1/payment week1/platform week1/iam week1/notification
 
 tasks:
   install-formatters:
@@ -297,7 +297,7 @@ tasks:
           fi
         
           go test -coverpkg="$TARGET_PKGS" \
-            -coverprofile={{.COVERAGE_DIR}}/$mod.out \
+            -coverprofile={{.COVERAGE_DIR}}/$(basename $mod).out \
             -covermode=atomic \
             $(echo "$TARGET_PKGS" | tr "," " ") || ERR=1
         done
