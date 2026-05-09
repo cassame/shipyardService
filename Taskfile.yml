@@ -269,7 +269,8 @@ tasks:
     cmds:
       - |
         echo "🧪 Запускаем расчёт покрытия..."
-        COVER_DIR={{.ROOT_DIR}}/{{.COVERAGE_DIR}}
+        # Убираем все {{.ROOT_DIR}} и прочее. Просто папка в корне.
+        COVER_DIR="coverage" 
         rm -rf $COVER_DIR
         mkdir -p $COVER_DIR
         
