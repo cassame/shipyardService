@@ -265,31 +265,38 @@ tasks:
         {{.MOCKERY}}
 
   test-coverage:
-    desc: "Тесты с покрытием бизнес-логики (service/repository), отчёт по каждому модулю + общий"
+    desc: "Тесты с покрытием бизнес-логики..."
     cmds:
       - |
         echo "🧪 Запускаем расчёт покрытия..."
-        rm -rf {{.COVERAGE_DIR}}
-        mkdir -p {{.COVERAGE_DIR}}
+        # Используем абсолютный путь для надежности
+        COVER_DIR={{.ROOT_DIR}}/{{.COVERAGE_DIR}}
+        rm -rf $COVER_DIR
+        mkdir -p $COVER_DIR
         
         ERR=0
         for mod in {{.MODULES}}; do
-          echo "📦 Обрабатываем модуль: $mod"
+          if [ -d "$mod" ]; then
+            echo "📦 Обрабатываем модуль: $mod"
         
-          TARGET_PKGS=$(go list ./$mod/... \
-            | grep -E '/(internal/(service|repository))' \
-            | grep -vE '/(mocks|testdata|pkg|api|proto|pb|cmd)' \
-            | paste -sd "," -)
+            # 1. Заходим ВНУТРЬ модуля, чтобы go list сработал
+            TARGET_PKGS=$(cd $mod && go list ./... \
+              | grep -E '/(internal/(service|repository))' \
+              | grep -vE '/(mocks|testdata|pkg|api|proto|pb|cmd)' \
+              | paste -sd "," -)
         
-          if [ -z "$TARGET_PKGS" ]; then
-            echo "⚠️  Нет подходящих пакетов в $mod"
-            continue
+            if [ -z "$TARGET_PKGS" ]; then
+              echo "⚠️  Нет подходящих пакетов в $mod"
+              continue
+            fi
+        
+            # 2. Запускаем тесты ВНУТРИ модуля
+            # Сохраняем результат в корень/coverage/имя_модуля.out
+            (cd $mod && go test -coverpkg="$TARGET_PKGS" \
+              -coverprofile=$COVER_DIR/$(basename $mod).out \
+              -covermode=atomic \
+              $(echo "$TARGET_PKGS" | tr "," " ")) || ERR=1
           fi
-        
-          go test -coverpkg="$TARGET_PKGS" \
-            -coverprofile={{.COVERAGE_DIR}}/$(basename $mod).out \
-            -covermode=atomic \
-            $(echo "$TARGET_PKGS" | tr "," " ") || ERR=1
         done
         
         if [ $ERR -ne 0 ]; then
@@ -299,8 +306,9 @@ tasks:
         
         echo
         echo "📊 Покрытие по каждому модулю:"
+        # Важно: теперь ищем файлы по их basename
         for mod in {{.MODULES}}; do
-          OUTFILE="{{.COVERAGE_DIR}}/$mod.out"
+          OUTFILE="$COVER_DIR/$(basename $mod).out"
           if [ -f "$OUTFILE" ]; then
             printf " • %s: " "$mod"
             go tool cover -func="$OUTFILE" | tail -n1
@@ -311,13 +319,14 @@ tasks:
         echo "📦 Склеиваем все покрытия..."
         {
           echo "mode: atomic"
-          find {{.COVERAGE_DIR}} -type f -name '*.out' ! -name '{{.COVERAGE_FILE}}' \
+          # Собираем все .out файлы кроме итогового
+          find $COVER_DIR -type f -name '*.out' ! -name '{{.COVERAGE_FILE}}' \
             -exec grep -h -v "^mode:" {} +
-        } > {{.COVERAGE_DIR}}/{{.COVERAGE_FILE}}
+        } > $COVER_DIR/{{.COVERAGE_FILE}}
         
         echo
         echo "🧾 Общее покрытие по всем модулям:"
-        go tool cover -func={{.COVERAGE_DIR}}/{{.COVERAGE_FILE}} | tail -n1
+        go tool cover -func=$COVER_DIR/{{.COVERAGE_FILE}} | tail -n1
 
   coverage:html:
     desc: "Генерирует HTML-отчёт покрытия и открывает его в браузере"
