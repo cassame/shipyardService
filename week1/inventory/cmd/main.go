@@ -1,7 +1,9 @@
 package main
 
 import (
-	"context"
+	api "inventory/internal/api/inventory/v1"
+	repoPart "inventory/internal/repository/part"
+	svcPart "inventory/internal/service/part"
 	"log"
 	"net"
 	"os"
@@ -13,46 +15,18 @@ import (
 	"google.golang.org/grpc/reflection"
 )
 
-type server struct {
-	desc.UnimplementedInventoryServiceServer
-}
-
-func (s *server) GetPart(ctx context.Context, req *desc.GetPartRequest) (*desc.GetPartResponse, error) {
-	log.Printf("Запрос детали с UUID: %s", req.GetUuid())
-
-	part := mockPart()
-
-	return &desc.GetPartResponse{
-		Part: part,
-	}, nil
-}
-
-func (s *server) ListParts(ctx context.Context, req *desc.ListPartsRequest) (*desc.ListPartsResponse, error) {
-	return &desc.ListPartsResponse{
-		Parts: []*desc.Part{
-			mockPart(),
-		},
-	}, nil
-}
-
-func mockPart() *desc.Part {
-	return &desc.Part{
-		Uuid:          "11111111-1111-1111-1111-111111111111",
-		Name:          "Двигатель Гипердрайва",
-		Description:   "Ускоряет до гипера",
-		Price:         999.99,
-		StockQuantity: 5,
-		Category:      desc.Category_CATEGORY_ENGINE,
-	}
-}
-
 func main() {
+
+	repo := repoPart.NewRepository()
+	svc := svcPart.NewService(repo)
+	impl := api.NewImplementation(svc)
+
 	lis, err := net.Listen("tcp", ":50051")
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	desc.RegisterInventoryServiceServer(s, &server{})
+	desc.RegisterInventoryServiceServer(s, impl)
 	reflection.Register(s)
 
 	log.Printf("Inventory Service запущен на %v", lis.Addr())

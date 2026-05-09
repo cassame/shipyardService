@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package order.v1;
+
+option go_package = "shared/pkg/proto/order/v1;order";
+
+service OrderService {
+  rpc CreateOrder (CreateOrderRequest) returns (CreateOrderResponse);
+  rpc GetOrder (GetOrderRequest) returns (GetOrderResponse);
+  rpc PayOrder (PayOrderRequest) returns (PayOrderResponse);
+  rpc CancelOrder (CancelOrderRequest) returns (CancelOrderResponse);
+}
+
+message OrderItem {
+  string part_uuid = 1;
+  uint32 quantity = 2;
+}
+
+message CreateOrderRequest {
+  string user_uuid = 1;
+  repeated OrderItem items = 2;
+}
+
+message CreateOrderResponse {
+  string order_uuid = 1;
+}
+
+message GetOrderRequest {
+  string order_uuid = 1;
+}
+
+message GetOrderResponse {
+  string order_uuid = 1;
+  string status = 2;
+  float total_price = 3;
+  repeated OrderItem items = 4;
+}
+
+message PayOrderRequest {
+  string order_uuid = 1;
+  uint32 payment_method = 2; // Тот самый int32
+}
+
+message PayOrderResponse {
+  bool success = 1;
+}
+
+message CancelOrderRequest {
+  string order_uuid = 1;
+}
+
+message CancelOrderResponse {}
+
