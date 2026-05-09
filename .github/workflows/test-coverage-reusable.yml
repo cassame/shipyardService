@@ -44,16 +44,20 @@ jobs:
 
       - name: 📊 Extract coverage percent
         run: |
-          # Ищем строку, начинающуюся на total, берем последнее поле и удаляем всё лишнее
           FILE_PATH="${{ env.COVERAGE_DIR }}/${{ env.COVERAGE_FILE }}"
-          RAW_TOTAL=$(go tool cover -func="$FILE_PATH" | grep "^total:" || true)
-          if [ -z "$RAW_TOTAL" ]; then
-             echo "⚠️ Не нашли строку total в выводе, ставим 0%"
-             TOTAL="0%"
-          else
-              TOTAL=$(echo "$RAW_TOTAL" | awk '{print $NF}' | tr -d '\r\n[:space:]')
-             echo "✅ Чистый процент: '$TOTAL'"
+          
+          # 1. Запускаем анализ и ищем только строку с 'total:'
+          # 2. Очищаем её от мусора и берем последнее слово
+          # 3. Дополнительно через sed оставляем только цифры, точки и знак %
+          TOTAL=$(go tool cover -func="$FILE_PATH" | grep "^total:" | awk '{print $NF}' | sed 's/[^0-9.%]//g')
+          
+          # Проверка: если после всех чисток пусто — ставим 0%
+          if [ -z "$TOTAL" ]; then
+            echo "⚠️  Парсинг не удался, ставим 0%"
+            TOTAL="0%"
           fi
+          
+          echo "✅ Результирующее значение для бейджа: '$TOTAL'"
           
           echo "TOTAL_COVERAGE=$TOTAL" >> $GITHUB_ENV
           echo "GIST_ID=${{ inputs.gist-id }}" >> $GITHUB_ENV
