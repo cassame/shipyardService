@@ -46,16 +46,20 @@ jobs:
         run: |
           FILE_PATH="${{ env.COVERAGE_DIR }}/${{ env.COVERAGE_FILE }}"
           
-          echo "=== Содержимое total.out (первые 20 строк) ==="
-          head -20 "$FILE_PATH" || echo "Файл не найден!"
-          echo "=== Всего строк: $(wc -l < "$FILE_PATH") ==="
-          
-          TOTAL=$(go tool cover -func="$FILE_PATH" | grep "^total:" | awk '{print $NF}' | sed 's/[^0-9.%]//g')
-          
-          if [ -z "$TOTAL" ]; then
-            echo "⚠️ Парсинг не удался, ставим 0%"
-            TOTAL="0%"
-          fi
+          # Считаем покрытие вручную из профиля:
+          # Каждая строка в .out: "file:start,end stmts count"
+          # stmts = кол-во statements, count = сколько раз выполнено (0 = не покрыто)
+          TOTAL=$(awk '
+            /^mode:/ { next }
+            {
+              stmts += $2        # суммируем все statements
+              if ($3 > 0) covered += $2   # если count > 0 — покрыто
+            }
+            END {
+              if (stmts == 0) { print "0%" }
+              else { printf "%.1f%%\n", covered/stmts*100 }
+            }
+          ' "$FILE_PATH")
           
           echo "✅ Результирующее значение: '$TOTAL'"
           echo "TOTAL_COVERAGE=$TOTAL" >> $GITHUB_ENV
