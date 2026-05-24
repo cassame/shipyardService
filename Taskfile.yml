@@ -283,23 +283,39 @@ tasks:
           if [ ! -d "$mod" ]; then
             continue
           fi
-
+        
           echo "📦 Обрабатываем модуль: $mod"
         
-          TARGET_PKGS=$(go list ./$mod/... 2>/dev/null             | grep -E '/(internal/(service|repository))'             | grep -vE '/(mocks|testdata|pkg|api|proto|pb|cmd)'             | paste -sd "," -)
+          # 1. Собираем пакеты, с которых ХОТИМ снять покрытие (наша бизнес-логика)
+          TARGET_PKGS=$(go list ./$mod/... 2>/dev/null \
+            | grep -E '/(internal/(service|repository))' \
+            | grep -vE '/(mocks|testdata|pkg|api|proto|pb|cmd)' \
+            | paste -sd "," -)
         
           if [ -z "$TARGET_PKGS" ]; then
-            echo "⚠️  Нет подходящих пакетов в $mod"
+            echo "⚠️  Нет подходящих пакетов для таргета покрытия в $mod"
             continue
           fi
-
-          # Проверка на физическое наличие файлов тестов, чтобы не ломать сборку из-за covdata
-          if ! find ./$mod -type f -name '*_test.go' | grep -q .; then
+        
+          # 2. Находим ТОЛЬКО те пакеты, внутри которых РЕАЛЬНО есть файлы тестов.
+          # Это заставит Go тестировать только живые тесты и не вызывать covdata для пустых папок.
+          TEST_PKGS=$(find ./$mod -type f -name '*_test.go' -exec dirname {} + \
+            | sort -u \
+            | sed 's|^\./|./|' \
+            | paste -sd " " -)
+        
+          if [ -z "$TEST_PKGS" ]; then
             echo "⚠️  В модуле $mod вообще нет файлов тестов (*_test.go), пропускаем"
             continue
           fi
         
-          go test -coverpkg="$TARGET_PKGS"             -coverprofile={{.COVERAGE_DIR}}/$mod.out             -covermode=atomic             ./$mod/... || ERR=1
+          echo "🚀 Запуск go test для пакетов с тестами: $TEST_PKGS"
+        
+          # Передаем `-coverpkg` (весь список бизнес-логики), но тестируем только пакеты с тестами
+          go test -coverpkg="$TARGET_PKGS" \
+            -coverprofile={{.COVERAGE_DIR}}/$mod.out \
+            -covermode=atomic \
+            $TEST_PKGS || ERR=1
         done
         
         if [ $ERR -ne 0 ]; then
@@ -326,7 +342,8 @@ tasks:
         if [ -n "$(find {{.COVERAGE_DIR}} -type f -name '*.out' 2>/dev/null)" ]; then
           {
             echo "mode: atomic"
-            find {{.COVERAGE_DIR}} -type f -name '*.out' ! -name '{{.COVERAGE_FILE}}'               -exec grep -h -v "^mode:" {} +
+            find {{.COVERAGE_DIR}} -type f -name '*.out' ! -name '{{.COVERAGE_FILE}}' \
+              -exec grep -h -v "^mode:" {} +
           } > {{.COVERAGE_DIR}}/{{.COVERAGE_FILE}}
         
           echo
