@@ -1,0 +1,157 @@
+openapi: 3.0.3
+info:
+  title: Order Service API
+  version: 1.0.0
+paths:
+  /api/v1/orders:
+    post:
+      summary: Создание заказа
+      operationId: CreateOrder
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrderRequest'
+      responses:
+        '200':
+          description: Успешное создание
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateOrderResponse'
+  /api/v1/orders/{order_uuid}/pay:
+    post:
+      summary: Оплата заказа
+      operationId: PayOrder
+      parameters:
+        - name: order_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayOrderRequest'
+      responses:
+        '200':
+          description: Успешная оплата
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayOrderResponse'
+        '404':
+          description: Заказ не найден
+  /api/v1/orders/{order_uuid}:
+    get:
+      summary: Получить заказ по UUID
+      operationId: GetOrder
+      parameters:
+        - name: order_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Информация о заказе
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '404':
+          description: Заказ не найден
+  /api/v1/orders/{order_uuid}/cancel:
+    post:
+      summary: Отменить заказ
+      operationId: CancelOrder
+      parameters:
+        - name: order_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Заказ успешно отменен
+        '404':
+          description: Заказ не найден
+        '409':
+          description: Конфликт (заказ уже оплачен)
+components:
+  schemas:
+    CreateOrderRequest:
+      type: object
+      required:
+        - user_uuid
+        - part_uuids
+      properties:
+        user_uuid:
+          type: string
+        part_uuids:
+          type: array
+          items:
+            type: string
+    CreateOrderResponse:
+      type: object
+      required:
+        - uuid
+      properties:
+        uuid:
+          type: string
+    PayOrderRequest:
+      type: object
+      required:
+        - payment_method
+      properties:
+        payment_method:
+          $ref: '#/components/schemas/PaymentMethod'
+    PayOrderResponse:
+      type: object
+      required:
+        - transaction_uuid
+      properties:
+        transaction_uuid:
+          type: string
+    PaymentMethod:
+      type: string
+      enum:
+        - UNKNOWN
+        - CARD
+        - SBP
+        - CREDIT_CARD
+        - INVESTOR_MONEY
+    OrderStatus:
+      type: string
+      enum:
+        - PENDING_PAYMENT
+        - PAID
+        - CANCELLED
+    Order:
+      type: object
+      required:
+        - uuid
+        - user_uuid
+        - part_uuids
+        - status
+      properties:
+        uuid:
+          type: string
+        user_uuid:
+          type: string
+        part_uuids:
+          type: array
+          items:
+            type: string
+        transaction_uuid:
+          type: string
+        payment_method:
+          $ref: '#/components/schemas/PaymentMethod'
+        status:
+          $ref: '#/components/schemas/OrderStatus'
+x-ogen:
+  target: shared/pkg/openapi/order/v1
+  package: openapi

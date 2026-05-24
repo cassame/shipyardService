@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8c78f869-d1d7-447d-b531-a56d71a9bf65" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/contracts/inventory_service_contracts.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/contracts/order_service_contracts.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/contracts/payment_service_contracts.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/coverage.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deploy/compose/inventory/docker-compose.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/go.work" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hw.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/cmd/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/go.mod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/go.sum" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/internal/api/inventory/v1/api.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/internal/api/inventory/v1/get.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/internal/api/inventory/v1/list.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/internal/api/inventory/v1/update_stock.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/internal/config/config.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/internal/converter/part.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/internal/model/error.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/internal/model/part.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/internal/model/part_filter.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/internal/repository/part/get.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/internal/repository/part/init.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/internal/repository/part/list.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/internal/repository/part/repository.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/internal/repository/part/update.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/internal/repository/repository.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/internal/service/part/get.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/internal/service/part/list.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/internal/service/part/service.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/internal/service/part/update.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/internal/service/service.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/cmd/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/coverage.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/go.mod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/go.sum" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/api/order/v1/api.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/api/order/v1/cancel.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/api/order/v1/create.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/api/order/v1/get.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/api/order/v1/new_order.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/api/order/v1/pay.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/client/converter/part.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/client/grpc/client.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/client/grpc/inventory/v1/client.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/client/grpc/inventory/v1/get_part.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/client/grpc/inventory/v1/list_parts.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/client/grpc/payment/v1/client.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/client/grpc/payment/v1/pay_order.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/converter/order.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/migrator/migrator.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/mocks/Clients.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/mocks/InventoryClient.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/mocks/OrderRepository.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/mocks/OrderService.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/mocks/PaymentClient.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/model/order.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/repository/order/create.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/repository/order/get.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/repository/order/repository.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/repository/order/update.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/repository/repository.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/service/order/cancel.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/service/order/create.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/service/order/create_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/service/order/get.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/service/order/get_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/service/order/pay.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/service/order/pay_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/service/order/service.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/service/order/suite_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/internal/service/service.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/migrations/00001_create_orders_table.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment/cmd/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment/go.mod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment/internal/api/payment/v1/api.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment/internal/api/payment/v1/pay.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment/internal/service/payment/pay.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment/internal/service/payment/service.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment/internal/service/service.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment/model/errors.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment/model/payment.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/api/order/v1/order.openapi.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/go.sum" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/week1/inventory/internal/api/inventory/v1/update_stock.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/week1/inventory/internal/config/config.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/week1/inventory/internal/repository/part/update.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/week1/inventory/internal/service/part/update.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/week1/order/internal/migrator/migrator.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/week1/order/migrations/00001_create_orders_table.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/golinter.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/homeworks.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Taskfile.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Taskfile.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/bin/buf" beforeDir="false" afterPath="$PROJECT_DIR$/bin/buf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/bin/grpcurl" beforeDir="false" afterPath="$PROJECT_DIR$/bin/grpcurl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/bin/ogen" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ogen" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/bin/protoc-gen-go" beforeDir="false" afterPath="$PROJECT_DIR$/bin/protoc-gen-go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/bin/protoc-gen-go-grpc" beforeDir="false" afterPath="$PROJECT_DIR$/bin/protoc-gen-go-grpc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/bin/yq" beforeDir="false" afterPath="$PROJECT_DIR$/bin/yq" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/week1/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/week1/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/go.work.sum" beforeDir="false" afterPath="$PROJECT_DIR$/week1/go.work.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/inventory/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/week1/inventory/cmd/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/inventory/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/week1/inventory/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/inventory/internal/model/part.go" beforeDir="false" afterPath="$PROJECT_DIR$/week1/inventory/internal/model/part.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/inventory/internal/repository/part/get.go" beforeDir="false" afterPath="$PROJECT_DIR$/week1/inventory/internal/repository/part/get.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/inventory/internal/repository/part/init.go" beforeDir="false" afterPath="$PROJECT_DIR$/week1/inventory/internal/repository/part/init.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/inventory/internal/repository/part/list.go" beforeDir="false" afterPath="$PROJECT_DIR$/week1/inventory/internal/repository/part/list.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/inventory/internal/repository/part/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/week1/inventory/internal/repository/part/repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/inventory/internal/repository/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/week1/inventory/internal/repository/repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/inventory/internal/service/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/week1/inventory/internal/service/service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/order/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/week1/order/cmd/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/order/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/week1/order/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/order/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/week1/order/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/order/internal/model/order.go" beforeDir="false" afterPath="$PROJECT_DIR$/week1/order/internal/model/order.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/order/internal/repository/order/create.go" beforeDir="false" afterPath="$PROJECT_DIR$/week1/order/internal/repository/order/create.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/order/internal/repository/order/get.go" beforeDir="false" afterPath="$PROJECT_DIR$/week1/order/internal/repository/order/get.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/order/internal/repository/order/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/week1/order/internal/repository/order/repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/order/internal/repository/order/update.go" beforeDir="false" afterPath="$PROJECT_DIR$/week1/order/internal/repository/order/update.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/shared/api/order/v1/order.openapi.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/shared/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/shared/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/shared/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/payment/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/shared/pkg/proto/inventory/v1/inventory.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/shared/pkg/proto/inventory/v1/inventory.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/shared/pkg/proto/inventory/v1/inventory_grpc.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/shared/pkg/proto/inventory/v1/inventory_grpc.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/shared/pkg/proto/order/v1/order.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/shared/pkg/proto/order/v1/order.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/shared/pkg/proto/order/v1/order_grpc.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/shared/pkg/proto/order/v1/order_grpc.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/shared/pkg/proto/payment/v1/payment.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/shared/pkg/proto/payment/v1/payment.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/shared/pkg/proto/payment/v1/payment_grpc.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/shared/pkg/proto/payment/v1/payment_grpc.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/shared/proto/buf.gen.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/shared/proto/buf.gen.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/shared/proto/buf.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/shared/proto/buf.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/shared/proto/inventory/v1/inventory.proto" beforeDir="false" afterPath="$PROJECT_DIR$/shared/proto/inventory/v1/inventory.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/shared/proto/order/v1/order.proto" beforeDir="false" afterPath="$PROJECT_DIR$/shared/proto/order/v1/order.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week1/shared/proto/payment/v1/payment.proto" beforeDir="false" afterPath="$PROJECT_DIR$/shared/proto/payment/v1/payment.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week3/boilerplates/deploy/compose/core/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/deploy/compose/core/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week3/boilerplates/deploy/compose/inventory/docker-compose.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/week3/boilerplates/deploy/compose/order/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/deploy/compose/order/docker-compose.yml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+      </list>
+    </option>
+  </component>
+  <component name="GOROOT" url="file:///usr/local/opt/go/libexec" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;cassame&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:cassame/shipyardService.git&quot;,
+    &quot;accountId&quot;: &quot;a39444d8-0146-4ce9-8572-d1aeb6d8f64e&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="3CoScn9weeddJlS08e85DL96Xmk" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.GoLinterPluginOnboarding&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.GoLinterPluginStorageMigration&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/cassame/VSCODE/GOLANG/microservices-course-homework-main/homeworks/week1&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;go.vgo&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-gosdk-f466f9b0953e-146d08934cbf-org.jetbrains.plugins.go.sharedIndexes.bundled-GO-252.27397.100" />
+        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-GO-252.27397.100" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8c78f869-d1d7-447d-b531-a56d71a9bf65" name="Changes" comment="" />
+      <created>1777050511510</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1777050511510</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VgoProject">
+    <settings-migrated>true</settings-migrated>
+  </component>
+</project>

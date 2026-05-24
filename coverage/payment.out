@@ -1,0 +1,3 @@
+mode: atomic
+payment/internal/service/payment/pay.go:11.105,26.2 5 0
+payment/internal/service/payment/service.go:13.28,17.2 1 0

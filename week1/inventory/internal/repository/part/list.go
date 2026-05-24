@@ -3,15 +3,22 @@ package part
 import (
 	"context"
 	"inventory/internal/model"
+
+	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
 func (r *repo) ListParts(ctx context.Context) ([]*model.Part, error) {
-	r.mx.RLock()
-	defer r.mx.RUnlock()
 
-	parts := make([]*model.Part, 0, len(r.data))
-	for _, p := range r.data {
-		parts = append(parts, p)
+	var parts []*model.Part
+
+	cursor, err := r.col.Find(ctx, bson.D{})
+	if err != nil {
+		return nil, err
+	}
+	defer cursor.Close(ctx)
+
+	if err := cursor.All(ctx, &parts); err != nil {
+		return nil, err
 	}
 
 	return parts, nil
