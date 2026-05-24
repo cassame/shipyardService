@@ -34,7 +34,9 @@ func (r *repo) ListParts(ctx context.Context, filterModel *model.PartsFilter) ([
 	if err != nil {
 		return nil, err
 	}
-	defer cursor.Close(ctx)
+	defer func() {
+		_ = cursor.Close(ctx)
+	}()
 
 	if err := cursor.All(ctx, &parts); err != nil {
 		return nil, err

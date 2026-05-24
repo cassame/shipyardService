@@ -62,13 +62,17 @@ func main() {
 	if err != nil {
 		log.Fatalf("не удалось подключиться к Inventory: %v", err)
 	}
-	defer invConn.Close()
+	defer func() {
+		_ = invConn.Close()
+	}()
 
 	payConn, err := grpc.NewClient(paymentAddress, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatalf("не удалось подключиться к Payment: %v", err)
 	}
-	defer payConn.Close()
+	defer func() {
+		_ = payConn.Close()
+	}()
 
 	grpcEngine := inventoryv1.NewInventoryServiceClient(invConn)
 	payEngine := paymentv1.NewPaymentServiceClient(payConn)
